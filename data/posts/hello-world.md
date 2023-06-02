@@ -1,5 +1,5 @@
 ---
-title: Hello Wrld
+title: Hello World
 published_at: 2023-06-01
 ---
 
