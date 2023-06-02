@@ -2,7 +2,6 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import * as gfm from "$gfm";
 import { loadPost, Post } from "../../utils/posts.ts";
 import { Container } from "../../components/Container.tsx";
-import { Header } from "../../components/Header.tsx";
 import { ServerCodePage } from "../_404.tsx";
 
 interface Data {
@@ -21,7 +20,6 @@ export default function PostPage(props: PageProps<Data>) {
   return post
     ? (
       <>
-        <Header />
         <Container>
           <h1 class="font-bold text-5xl pt-20">{post.title}</h1>
           <time class="inline-block mt-4">
