@@ -1,6 +1,7 @@
 ---
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+const { pageTitle } = Astro.props;
 ---
 
 <html lang="en">
@@ -9,12 +10,13 @@ import Footer from '../components/Footer.astro';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Sean Collins</title>
+		<title>Sean Collins | {pageTitle}</title>
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 	</head>
 	<body>
     <Navigation />
+    <h2>{pageTitle}</h2>
     <slot />
     <Footer />
     <script>
