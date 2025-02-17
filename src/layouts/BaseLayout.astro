@@ -3,13 +3,7 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import "../styles/global.css";
 
-import { getCollection } from 'astro:content';
-
-const posts = await getCollection('blog');
-const sortedPosts = posts.sort(
-  (a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-const pageTitle = 'Sean Collins | Home';
+const { pageTitle } = Astro.props;
 ---
 
 <html lang="en">
@@ -21,33 +15,8 @@ const pageTitle = 'Sean Collins | Home';
   </head>
   <body class="bg-gray-50">
     <Navigation />
-
-    <main class="max-w-4xl mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-8">Blog Posts</h1>
-
-      <div class="grid gap-6">
-        {sortedPosts.map((post: any) => (
-          <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            <a href={`/blog/${post.id}`}>
-              <div class="p-6">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                  {post.data.title}
-                </h2>
-                <p class="text-gray-600 mb-4">
-                  {new Date(post.data.date).toLocaleDateString()}
-                </p>
-                {post.data.description && (
-                  <p class="text-gray-700">
-                    {post.data.description}
-                  </p>
-                )}
-              </div>
-            </a>
-          </article>
-        ))}
-      </div>
-    </main>
-
+    <h1>{pageTitle}</h1>
+    <slot />
     <Footer />
   </body>
 </html>
