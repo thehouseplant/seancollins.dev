@@ -1,14 +1,10 @@
 ---
+import BaseLayout from './BaseLayout.astro';
+
 const { frontmatter } = Astro.props;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{frontmatter.title}</title>
-  </head>
-  <body class="bg-gray-50">
+<BaseLayout pageTitle={frontmatter.title}>
     <main class="max-w-4xl mx-auto px-4 py-8">
       <article class="bg-white rounded-lg shadow-md overflow-hidden">
         {frontmatter.image && (
@@ -31,5 +27,4 @@ const { frontmatter } = Astro.props;
         </div>
       </article>
     </main>
-  </body>
-</html>
+</BaseLayout>
