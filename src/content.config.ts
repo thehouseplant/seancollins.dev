@@ -1,11 +1,16 @@
 // Import utility functions
 import { defineCollection, z } from 'astro:content';
-
-// Import content loaders
-import { glob, file } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
 // Define collections
-const blog = defineCollection({ /* ... */ });
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/blog'}),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+  })
+});
 
 // Export a single collections object to register collection(s)
 export const collections = { blog };
