@@ -1,17 +1,54 @@
 ---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort(
+  (a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+import Navigation from '../components/Navigation.astro';
 import "../styles/global.css";
 ---
 
-<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Blog Posts</title>
+  </head>
+  <body class="bg-gray-50">
+    <Navigation />
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-8">Blog Posts</h1>
+
+      <div class="grid gap-6">
+        {sortedPosts.map((post: any) => (
+          <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <a href={`/blog/${post.id}`}>
+              <div class="p-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-600 mb-4">
+                  {new Date(post.data.date).toLocaleDateString()}
+                </p>
+                {post.data.description && (
+                  <p class="text-gray-700">
+                    {post.data.description}
+                  </p>
+                )}
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </main>
+
+    <footer class="bg-white border-t mt-12">
+      <div class="max-w-4xl mx-auto px-4 py-6 text-center text-gray-600">
+        © {new Date().getFullYear()} Your Blog Name
+      </div>
+    </footer>
+  </body>
 </html>
