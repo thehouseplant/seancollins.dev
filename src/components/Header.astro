@@ -72,3 +72,17 @@ const {
     </div>
   </div>
 </header>
+
+<script>
+  // Mobile menu toggle functionality
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('#mobile-menu');
+  const menuIcon = mobileMenuButton?.querySelector('.lucide-menu');
+  const closeIcon = mobileMenuButton?.querySelector('.lucide-x');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+</script>
