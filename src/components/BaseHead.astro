@@ -1,7 +1,6 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
-import '../styles/global.css';
 import { SITE_TITLE } from '../consts';
 
 interface Props {
@@ -28,7 +27,7 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 />
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"
 >
 <meta name="generator" content={Astro.generator} />
 
