@@ -1,13 +1,27 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const latestPosts = allPosts
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+
+function formatDate(date) {
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+}
 ---
 
-<BaseLayout title="Sean Collins | Writer & Creator">
+<BaseLayout title="Your Name | Writer & Creator">
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title text-balance">
-                Hi, I'm Sean Collins—a writer, thinker, and occasional
-                photographer based in Southern California.
+                Hi, I'm Your Name—a writer, thinker, and occasional photographer
+                based in Portland.
             </h1>
             <p class="hero-description">
                 I write about creativity, technology, life, and the little
@@ -30,44 +44,25 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
             >
         </div>
         <div class="posts-grid">
-            <article class="post-card">
-                <span class="post-number">01</span>
-                <time class="post-date">January 10, 2026</time>
-                <h3 class="post-title">
-                    <a href="/blog/finding-light"
-                        >Finding Light in Unexpected Places</a
-                    >
-                </h3>
-                <p class="post-excerpt">
-                    Sometimes the most compelling photographs come from the
-                    moments we least expect. Here's what I've learned about
-                    chasing light.
-                </p>
-            </article>
-            <article class="post-card">
-                <span class="post-number">02</span>
-                <time class="post-date">January 3, 2026</time>
-                <h3 class="post-title">
-                    <a href="/blog/slow-photography"
-                        >The Case for Slow Photography</a
-                    >
-                </h3>
-                <p class="post-excerpt">
-                    In a world of instant gratification, there's something
-                    deeply rewarding about taking your time with a single frame.
-                </p>
-            </article>
-            <article class="post-card">
-                <span class="post-number">03</span>
-                <time class="post-date">December 28, 2025</time>
-                <h3 class="post-title">
-                    <a href="/blog/year-in-review">2025: A Year in Review</a>
-                </h3>
-                <p class="post-excerpt">
-                    Reflecting on the images, stories, and lessons that shaped
-                    my creative journey over the past twelve months.
-                </p>
-            </article>
+            {
+                latestPosts.map((post, index) => (
+                    <article class="post-card">
+                        <span class="post-number">
+                            {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <time
+                            class="post-date"
+                            datetime={post.data.pubDate.toISOString()}
+                        >
+                            {formatDate(post.data.pubDate)}
+                        </time>
+                        <h3 class="post-title">
+                            <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                        </h3>
+                        <p class="post-excerpt">{post.data.description}</p>
+                    </article>
+                ))
+            }
         </div>
     </section>
 
