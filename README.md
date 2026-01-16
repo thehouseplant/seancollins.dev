@@ -1,62 +1,159 @@
-# Astro Starter Kit: Blog
+# Personal Portfolio & Blog
 
-```sh
-npm create astro@latest -- --template blog
+A minimal, editorial-style photography portfolio and blog built with Astro for deployment on Cloudflare Pages.
+
+## Features
+
+- Blog with markdown content support
+- Photography gallery with lightbox
+- Light/Dark/System theme toggle
+- Mobile-responsive design
+- Cloudflare Web Analytics integration
+- Optimized for Cloudflare Pages deployment
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or pnpm
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Project Structure
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
+```
+├── public/                 # Static assets
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/        # Astro components
+│   ├── content/
+│   │   └── blog/         # Markdown blog posts
+│   ├── layouts/          # Layout templates
+│   ├── pages/            # Route pages
+│   └── styles/           # Global styles
+├── astro.config.mjs      # Astro configuration
+└── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Adding Blog Posts
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Create a new `.md` file in `src/content/blog/` with the following frontmatter:
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+```md
+---
+title: "Your Post Title"
+description: "A brief description of your post"
+pubDate: 2026-01-15
+tags: ["tag1", "tag2"]
+heroImage: "/path/to/image.jpg"
+draft: false
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+Your content here...
+```
 
-## 🧞 Commands
+## Adding Gallery Images
 
-All commands are run from the root of the project, from a terminal:
+Edit `src/pages/gallery/index.astro` and add images to the `images` array:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```js
+const images = [
+  { 
+    src: '/path/to/image.jpg', 
+    alt: 'Image description', 
+    title: 'Image Title', 
+    category: 'Landscapes' 
+  },
+  // ...more images
+];
+```
 
-## 👀 Want to learn more?
+## Cloudflare Pages Deployment
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+### Option 1: Via Cloudflare Dashboard
 
-## Credit
+1. Push your code to a GitHub/GitLab repository
+2. Go to [Cloudflare Pages](https://pages.cloudflare.com/)
+3. Click "Create a project" > "Connect to Git"
+4. Select your repository
+5. Configure build settings:
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+6. Click "Save and Deploy"
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+### Option 2: Via Wrangler CLI
+
+```bash
+# Install Wrangler
+npm install -g wrangler
+
+# Login to Cloudflare
+wrangler login
+
+# Deploy
+wrangler pages deploy dist
+```
+
+## Setting Up Cloudflare Web Analytics
+
+1. Go to your Cloudflare dashboard
+2. Navigate to **Analytics & Logs** > **Web Analytics**
+3. Click "Add a site" and enter your domain
+4. Copy the analytics token from the provided JS snippet
+5. Add to your environment:
+   - Create a `.env` file (for local dev):
+     ```
+     PUBLIC_CF_ANALYTICS_TOKEN=your_token_here
+     ```
+   - Or set in Cloudflare Pages dashboard under **Settings** > **Environment variables**
+
+## Customization
+
+### Updating Site Info
+
+1. Update `astro.config.mjs` with your actual site URL
+2. Edit component content in:
+   - `src/components/Header.astro` - Site name and navigation
+   - `src/components/Footer.astro` - Footer links and social media
+3. Update meta information in `src/layouts/BaseLayout.astro`
+
+### Changing Theme Colors
+
+Edit the CSS custom properties in `src/styles/global.css`:
+
+```css
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
+  /* ...other variables */
+}
+
+:root.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  /* ...other variables */
+}
+```
+
+### Changing Fonts
+
+1. Update the Google Fonts import in `src/styles/global.css`
+2. Modify the `--font-sans` and `--font-serif` variables
+
+## License
+
+MIT
