@@ -1,0 +1,222 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const contactMethods = [
+    {
+        label: "Email",
+        value: "hello@yourname.com",
+        href: "mailto:hello@yourname.com",
+        description: "Best way to reach me",
+    },
+    {
+        label: "Instagram",
+        value: "@yourname",
+        href: "https://instagram.com/yourname",
+        description: "DMs are open",
+    },
+];
+
+const workTypes = [
+    "Portrait Sessions",
+    "Editorial & Commercial",
+    "Brand Photography",
+    "Workshops & Mentoring",
+    "Print Sales",
+    "Speaking Engagements",
+];
+---
+
+<BaseLayout
+    title="Contact | Your Name"
+    description="Say hello, ask a question, or just drop a line."
+>
+    <div class="contact-page">
+        <header class="page-header">
+            <p class="page-label">Contact</p>
+            <h1 class="page-title text-balance">Say hello.</h1>
+            <p class="page-description">
+                Got a question? Want to chat about something I wrote? Or just
+                want to say hi? I'd love to hear from you.
+            </p>
+        </header>
+
+        <div class="contact-grid">
+            <section class="contact-section">
+                <h2 class="section-title">Get in Touch</h2>
+                <div class="contact-methods">
+                    {
+                        contactMethods.map((method) => (
+                            <a
+                                href={method.href}
+                                class="contact-method"
+                                target={
+                                    method.href.startsWith("http")
+                                        ? "_blank"
+                                        : undefined
+                                }
+                                rel={
+                                    method.href.startsWith("http")
+                                        ? "noopener noreferrer"
+                                        : undefined
+                                }
+                            >
+                                <span class="method-label">{method.label}</span>
+                                <span class="method-value">
+                                    {method.value}
+                                    {method.href.startsWith("http") && (
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="14"
+                                            height="14"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M7 7h10v10" />
+                                            <path d="M7 17 17 7" />
+                                        </svg>
+                                    )}
+                                </span>
+                                <span class="method-description">
+                                    {method.description}
+                                </span>
+                            </a>
+                        ))
+                    }
+                </div>
+            </section>
+
+            <section class="contact-section">
+                <h2 class="section-title">Location</h2>
+                <div class="location-info">
+                    <p class="location-city">Portland, Oregon</p>
+                    <p class="location-note">Pacific Time Zone</p>
+                </div>
+            </section>
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .contact-page {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 6rem;
+    }
+
+    .page-header {
+        margin-bottom: 4rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .page-label {
+        font-size: 0.875rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+    }
+
+    .page-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 400;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-description {
+        font-size: 1.125rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 560px;
+    }
+
+    .contact-grid {
+        display: grid;
+        gap: 3rem;
+    }
+
+    .contact-section {
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .contact-section:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .section-title {
+        font-family: var(--font-serif);
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--muted);
+        margin-bottom: 1.25rem;
+        letter-spacing: 0.025em;
+    }
+
+    .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .contact-method {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        transition: border-color 0.2s ease;
+    }
+
+    .contact-method:hover {
+        border-color: var(--foreground);
+    }
+
+    .method-label {
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .method-value {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .method-value svg {
+        opacity: 0.5;
+    }
+
+    .method-description {
+        font-size: 0.875rem;
+        color: var(--muted);
+    }
+
+    .location-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .location-city {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .location-note {
+        font-size: 0.875rem;
+        color: var(--muted);
+    }
+</style>
