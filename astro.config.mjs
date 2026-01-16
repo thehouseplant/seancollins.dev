@@ -1,11 +1,18 @@
-// @ts-check
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
 
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import { defineConfig } from 'astro/config';
-
-// https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+  site: "https://example.com", // Replace with your actual domain
+  output: "static",
+  adapter: cloudflare(),
+  build: {
+    // Generate assets in a format optimized for Cloudflare Pages
+    assets: "_astro",
+  },
+  vite: {
+    build: {
+      // Ensure CSS is properly handled
+      cssCodeSplit: true,
+    },
+  },
 });
