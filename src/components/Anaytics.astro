@@ -1,0 +1,19 @@
+---
+// Cloudflare Web Analytics
+// To enable: Go to your Cloudflare dashboard > Analytics > Web Analytics
+// Add your site and copy the token to replace 'YOUR_CF_ANALYTICS_TOKEN' below
+// The token is in the JS snippet Cloudflare provides
+
+const { token } = Astro.props;
+const analyticsToken = token || import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+---
+
+{
+    analyticsToken && (
+        <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token": "${analyticsToken}"}`}
+        />
+    )
+}
