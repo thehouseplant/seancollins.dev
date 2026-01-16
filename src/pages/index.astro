@@ -1,49 +1,350 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<BaseLayout title="Your Name | Writer & Creator">
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title text-balance">
+                Hi, I'm Your Name—a writer, thinker, and occasional photographer
+                based in Portland.
+            </h1>
+            <p class="hero-description">
+                I write about creativity, technology, life, and the little
+                things that make it interesting. I also take photos from time to
+                time. Stick around—there's plenty to explore.
+            </p>
+            <div class="hero-actions">
+                <a href="/blog" class="btn btn-primary">Read the Blog</a>
+                <a href="/about" class="btn btn-secondary">Get to Know Me</a>
+            </div>
+        </div>
+        <div class="hero-accent" aria-hidden="true"></div>
+    </section>
+
+    <section class="latest-posts">
+        <div class="section-header">
+            <h2 class="section-title">Latest Writing</h2>
+            <a href="/blog" class="section-link"
+                >Read all <span class="arrow">&rarr;</span></a
+            >
+        </div>
+        <div class="posts-grid">
+            <article class="post-card">
+                <span class="post-number">01</span>
+                <time class="post-date">January 10, 2026</time>
+                <h3 class="post-title">
+                    <a href="/blog/finding-light"
+                        >Finding Light in Unexpected Places</a
+                    >
+                </h3>
+                <p class="post-excerpt">
+                    Sometimes the most compelling photographs come from the
+                    moments we least expect. Here's what I've learned about
+                    chasing light.
+                </p>
+            </article>
+            <article class="post-card">
+                <span class="post-number">02</span>
+                <time class="post-date">January 3, 2026</time>
+                <h3 class="post-title">
+                    <a href="/blog/slow-photography"
+                        >The Case for Slow Photography</a
+                    >
+                </h3>
+                <p class="post-excerpt">
+                    In a world of instant gratification, there's something
+                    deeply rewarding about taking your time with a single frame.
+                </p>
+            </article>
+            <article class="post-card">
+                <span class="post-number">03</span>
+                <time class="post-date">December 28, 2025</time>
+                <h3 class="post-title">
+                    <a href="/blog/year-in-review">2025: A Year in Review</a>
+                </h3>
+                <p class="post-excerpt">
+                    Reflecting on the images, stories, and lessons that shaped
+                    my creative journey over the past twelve months.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="gallery-teaser">
+        <div class="teaser-content">
+            <h2 class="teaser-title">I also take photos</h2>
+            <p class="teaser-description">
+                Browse a collection of my favorite shots from travels, street
+                wanderings, and everyday life.
+            </p>
+            <a href="/gallery" class="teaser-link">
+                View the Gallery
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .hero {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 6rem 1.5rem;
+        position: relative;
+    }
+
+    @media (min-width: 768px) {
+        .hero {
+            padding: 8rem 1.5rem;
+        }
+    }
+
+    .hero-content {
+        max-width: 720px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-title {
+        font-family: var(--font-serif);
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+        font-weight: 400;
+        line-height: 1.3;
+        letter-spacing: -0.025em;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-description {
+        font-size: 1.125rem;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .hero-accent {
+        position: absolute;
+        top: 4rem;
+        right: 2rem;
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(
+            135deg,
+            var(--accent-muted) 0%,
+            transparent 70%
+        );
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+        .hero-accent {
+            width: 300px;
+            height: 300px;
+            top: 2rem;
+            right: 10%;
+        }
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.875rem 1.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--foreground);
+        color: var(--background);
+    }
+
+    .btn-primary:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: var(--foreground);
+        border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--surface);
+        border-color: var(--muted-foreground);
+    }
+
+    .latest-posts {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem 6rem;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+        font-family: var(--font-serif);
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+
+    .section-link {
+        font-size: 0.875rem;
+        color: var(--muted);
+        transition: color 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .section-link:hover {
+        color: var(--accent);
+    }
+
+    .section-link .arrow {
+        transition: transform 0.2s ease;
+    }
+
+    .section-link:hover .arrow {
+        transform: translateX(3px);
+    }
+
+    .posts-grid {
+        display: grid;
+        gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .posts-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .post-card {
+        padding: 1.5rem;
+        background-color: var(--surface);
+        border-radius: 0.75rem;
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+    .post-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .post-number {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .post-date {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+    }
+
+    .post-title {
+        font-family: var(--font-serif);
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+    }
+
+    .post-title a {
+        transition: color 0.2s ease;
+    }
+
+    .post-title a:hover {
+        color: var(--accent);
+    }
+
+    .post-excerpt {
+        font-size: 0.875rem;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .gallery-teaser {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem 6rem;
+    }
+
+    .teaser-content {
+        padding: 3rem 2rem;
+        background-color: var(--surface);
+        border-radius: 1rem;
+        text-align: center;
+    }
+
+    .teaser-title {
+        font-family: var(--font-serif);
+        font-size: 1.25rem;
+        font-weight: 400;
+        margin-bottom: 0.75rem;
+    }
+
+    .teaser-description {
+        font-size: 0.9375rem;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .teaser-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--accent);
+        transition: gap 0.2s ease;
+    }
+
+    .teaser-link:hover {
+        gap: 0.75rem;
+    }
+</style>
