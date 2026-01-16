@@ -1,0 +1,319 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Lightbox from "@/components/Lightbox.astro";
+
+const categories = ["All", "Landscapes", "Portraits", "Street", "Travel"];
+
+const images = [
+    {
+        src: "/placeholder.svg?height=800&width=1200",
+        alt: "Mountain landscape at golden hour",
+        title: "Golden Hour Summit",
+        category: "Landscapes",
+    },
+    {
+        src: "/placeholder.svg?height=1200&width=800",
+        alt: "Portrait in natural light",
+        title: "Window Light",
+        category: "Portraits",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=800",
+        alt: "Urban street scene",
+        title: "City Rhythms",
+        category: "Street",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=1200",
+        alt: "Coastal sunset",
+        title: "Coastal Dusk",
+        category: "Landscapes",
+    },
+    {
+        src: "/placeholder.svg?height=1200&width=800",
+        alt: "Tokyo street at night",
+        title: "Neon Dreams",
+        category: "Travel",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=800",
+        alt: "Minimal black and white portrait",
+        title: "Contrast",
+        category: "Portraits",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=1200",
+        alt: "Misty forest morning",
+        title: "Morning Mist",
+        category: "Landscapes",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=1200",
+        alt: "Kyoto temple garden",
+        title: "Stillness",
+        category: "Travel",
+    },
+    {
+        src: "/placeholder.svg?height=1200&width=800",
+        alt: "Street scene in the rain",
+        title: "Rainy Day",
+        category: "Street",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=800",
+        alt: "Dramatic portrait lighting",
+        title: "Shadow Play",
+        category: "Portraits",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=1200",
+        alt: "Desert sand dunes",
+        title: "Shifting Sands",
+        category: "Landscapes",
+    },
+    {
+        src: "/placeholder.svg?height=800&width=1200",
+        alt: "Lisbon street with tram",
+        title: "Lisbon Lines",
+        category: "Travel",
+    },
+];
+---
+
+<BaseLayout
+    title="Gallery | Your Name"
+    description="A curated collection of photographs exploring light, moments, and stories."
+>
+    <div class="gallery-page">
+        <header class="page-header">
+            <h1 class="page-title">Gallery</h1>
+            <p class="page-description">
+                A curated collection of photographs exploring light, moments,
+                and stories.
+            </p>
+        </header>
+
+        <div
+            class="gallery-filters"
+            role="tablist"
+            aria-label="Filter images by category"
+        >
+            {
+                categories.map((category, index) => (
+                    <button
+                        class:list={["filter-btn", { active: index === 0 }]}
+                        data-category={category}
+                        role="tab"
+                        aria-selected={index === 0 ? "true" : "false"}
+                    >
+                        {category}
+                    </button>
+                ))
+            }
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+            {
+                images.map((image, index) => (
+                    <button
+                        class="gallery-item"
+                        data-category={image.category}
+                        data-index={index}
+                        aria-label={`View ${image.title}`}
+                    >
+                        <img
+                            src={image.src || "/placeholder.svg"}
+                            alt={image.alt}
+                            loading="lazy"
+                        />
+                        <div class="gallery-overlay">
+                            <span class="gallery-title">{image.title}</span>
+                            <span class="gallery-category">
+                                {image.category}
+                            </span>
+                        </div>
+                    </button>
+                ))
+            }
+        </div>
+    </div>
+
+    <Lightbox images={images} />
+</BaseLayout>
+
+<style>
+    .gallery-page {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 6rem;
+    }
+
+    .page-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .page-title {
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+
+    .page-description {
+        font-size: 1.125rem;
+        color: var(--muted);
+        max-width: 500px;
+    }
+
+    .gallery-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 9999px;
+        color: var(--muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+    .filter-btn.active {
+        background-color: var(--accent);
+        border-color: var(--accent);
+        color: var(--accent-foreground);
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+    }
+
+    .gallery-item {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border-radius: 0.75rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 0;
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease;
+    }
+
+    .gallery-item.hidden {
+        display: none;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding: 1.5rem;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0) 60%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay,
+    .gallery-item:focus .gallery-overlay {
+        opacity: 1;
+    }
+
+    .gallery-title {
+        font-size: 1rem;
+        font-weight: 500;
+        color: white;
+        margin-bottom: 0.25rem;
+    }
+
+    .gallery-category {
+        font-size: 0.75rem;
+        color: var(--accent);
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 0.25rem 0.5rem;
+        border-radius: 9999px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+</style>
+
+<script>
+    // Category filtering
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            // Update active state
+            filterBtns.forEach((b) => {
+                b.classList.remove("active");
+                b.setAttribute("aria-selected", "false");
+            });
+            btn.classList.add("active");
+            btn.setAttribute("aria-selected", "true");
+
+            const category = btn.getAttribute("data-category");
+
+            // Filter items
+            galleryItems.forEach((item) => {
+                const itemCategory = item.getAttribute("data-category");
+                if (category === "All" || itemCategory === category) {
+                    item.classList.remove("hidden");
+                } else {
+                    item.classList.add("hidden");
+                }
+            });
+        });
+    });
+
+    // Lightbox triggers
+    galleryItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            const index = parseInt(item.getAttribute("data-index") || "0", 10);
+            if (typeof window.openLightbox === "function") {
+                window.openLightbox(index);
+            }
+        });
+    });
+</script>
